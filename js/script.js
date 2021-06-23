@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const inp = document.querySelector('.x');
+const inpX = document.querySelector('.x');
+const inpY = document.querySelector('.y');
 const btn = document.querySelector('.btn');
 
 let text = "ABCDEFGH";
@@ -26,10 +27,27 @@ const toMatrix = (pos) => {
 } 
 
 btn.addEventListener('click', () => {
-   let obj1 = toMatrix(inp.value);
-   ctx.fillStyle = 'coral';
+   let obj1 = toMatrix(inpX.value);
+   let obj2 = toMatrix(inpY.value);
+   ctx.fillStyle = '#' + parseInt(Math.random() * Math.pow(2, 24).toString(16));
    ctx.beginPath();
-   ctx.arc(112 + obj1.x * 70, 122 + obj1.y * 70, 25, 0, 2 * Math.PI);
+   ctx.arc(110 + obj1.x * 70, 110 + obj1.y * 70, 25, 0, 2 * Math.PI);
+   
    ctx.closePath();
    ctx.fill();
+
+
+   ctx.beginPath();
+   ctx.arc(110 + obj2.x * 70, 110 + obj2.y * 70, 25, 0, 2 * Math.PI);
+   ctx.fillStyle = '#' + parseInt(Math.random() * Math.pow(2, 24).toString(16));
+   ctx.closePath();
+   ctx.fill();
+
+   if (obj1.x + obj1.y === obj2.x + obj2.y) {
+      ctx.strokeStyle = 'red';
+      ctx.moveTo(85 + obj1.x * 70, 85 + obj1.y * 70);
+      ctx.lineTo(85 + obj2.x * 70, 85 + obj2.y * 70);
+      ctx.stroke();
+   }
+
 });
